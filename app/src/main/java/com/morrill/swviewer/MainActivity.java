@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         namesListView.setAdapter(namesArrayAdapter);
 
         //play audio file
-        //PlayBackgroundMusic(this, R.raw.primary_song);
+        playBackgroundMusic(this, R.raw.background_music);
 
         // configure FAB to hide keyboard and initiate web service request
         FloatingActionButton fab =
@@ -78,7 +78,25 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void PlayBackgroundMusic(final Context context, int rawSound) {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopBackgroundMusic();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        playBackgroundMusic(this, R.raw.background_music);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        killBackgroundMusic();
+    }
+
+    public void playBackgroundMusic(final Context context, int rawSound) {
         mediaPlayer = MediaPlayer.create(context, rawSound);
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -89,6 +107,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mediaPlayer.start();
+    }
+
+    public void stopBackgroundMusic() {
+        if (mediaPlayer != null)
+            mediaPlayer.pause();
+    }
+
+    public void killBackgroundMusic() {
+        if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     // programmatically dismiss keyboard when user touches FAB
