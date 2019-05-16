@@ -106,14 +106,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.item2:
                 Toast.makeText(this, "Other resource topics to try: Vehicles, Starships, Species", Toast.LENGTH_LONG).show();
                 return true;
-            case R.id.item3:
-                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
+            case R.id.music_on:
+                if (musicPaused) {
+                    playBackgroundMusic(this, R.raw.background_music);
+                    Toast.makeText(this, "Music ON", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(this, "Music already playing", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.subitem1:
-                Toast.makeText(this, "Sub Item 1 selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.subitem2:
-                Toast.makeText(this, "Sub Item 2 selected", Toast.LENGTH_SHORT).show();
+            case R.id.music_off:
+                if (!musicPaused) {
+                    killBackgroundMusic();
+                    Toast.makeText(this, "Music OFF", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(this, "Music already off", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -140,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void playBackgroundMusic(final Context context, int rawSound) {
         mediaPlayer = MediaPlayer.create(context, rawSound);
-        musicPaused = false;
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -150,11 +156,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mediaPlayer.start();
+        musicPaused = false;
     }
 
     public void killBackgroundMusic() {
-        musicPaused = true;
         if(mediaPlayer != null) {
+            musicPaused = true;
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
