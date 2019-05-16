@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SW Viewer</string>
+    <string name="web_service_url">https://swapi.co/api</string>
+    <string name="invalid_url">Invalid URL</string>
+    <string name="name_description">%s</string>
+    <string name="hint_text">Enter resource (e.g, People, Planets, ...)</string>
+    <string name="read_error">Unable to read weather data</string>
+    <string name="connect_error">Unable to connect to swapi.co</string>
+</resources>
