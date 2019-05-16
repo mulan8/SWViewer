@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom"/>
 
     <item android:id="@+id/item2"
-        android:title="Item2"
+        android:title="Advice"
         app:showAsAction="never"/>
     <item android:id="@+id/item3"
         android:title="Item3"

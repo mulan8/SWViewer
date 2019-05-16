@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.item2:
-                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Other resource topics to try: Vehicles, Starships, Species", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.item3:
                 Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
