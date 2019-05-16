@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Background music ON", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    stopBackgroundMusic();
+                    killBackgroundMusic();
                     Toast.makeText(this, "Background music OFF", Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        stopBackgroundMusic();
+        killBackgroundMusic();
     }
 
     @Override
@@ -152,13 +152,8 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
     }
 
-    public void stopBackgroundMusic() {
-        musicPaused = true;
-        if (mediaPlayer != null)
-            mediaPlayer.pause();
-    }
-
     public void killBackgroundMusic() {
+        musicPaused = true;
         if(mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
