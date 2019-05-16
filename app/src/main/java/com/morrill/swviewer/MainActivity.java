@@ -10,10 +10,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     // ArrayAdapter for binding Topic objects to a ListView
     private TopicArrayAdapter namesArrayAdapter;
     private ListView namesListView; // displays resource names
+    private boolean musicPaused;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +84,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.sw_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item1:
+                if (musicPaused) {
+                    playBackgroundMusic(this, R.raw.background_music);
+                    Toast.makeText(this, "Background music ON", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    stopBackgroundMusic();
+                    Toast.makeText(this, "Background music OFF", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            case R.id.item2:
+                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.item3:
+                Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.subitem1:
+                Toast.makeText(this, "Sub Item 1 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.subitem2:
+                Toast.makeText(this, "Sub Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         stopBackgroundMusic();
@@ -98,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void playBackgroundMusic(final Context context, int rawSound) {
         mediaPlayer = MediaPlayer.create(context, rawSound);
+        musicPaused = false;
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -110,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stopBackgroundMusic() {
+        musicPaused = true;
         if (mediaPlayer != null)
             mediaPlayer.pause();
     }
